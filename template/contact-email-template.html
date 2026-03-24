@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>New Contact Message</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #0a0a0a;
+      font-family: 'DM Mono', 'Courier New', monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .email-wrapper {
+      background-color: #0a0a0a;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .email-container {
+      max-width: 620px;
+      margin: 0 auto;
+      background-color: #0f0f0f;
+      border: 1px solid #1e1e1e;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    /* ─── HEADER ─── */
+    .header {
+      background-color: #0f0f0f;
+      padding: 48px 48px 36px;
+      border-bottom: 1px solid #1a1a1a;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #e8ff47 0%, #47ffd4 50%, #e8ff47 100%);
+    }
+
+    .header-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #e8ff47;
+      background-color: rgba(232, 255, 71, 0.08);
+      border: 1px solid rgba(232, 255, 71, 0.2);
+      padding: 5px 12px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+
+    .header-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: #f5f5f5;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .header-title span {
+      color: #e8ff47;
+    }
+
+    .header-subtitle {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #444;
+      letter-spacing: 0.05em;
+    }
+
+    .header-decoration {
+      position: absolute;
+      right: 48px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 80px;
+      height: 80px;
+      border: 1px solid #1e1e1e;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-decoration::after {
+      content: '';
+      width: 50px;
+      height: 50px;
+      border: 1px solid #2a2a2a;
+      border-radius: 50%;
+    }
+
+    /* ─── BODY ─── */
+    .body {
+      padding: 40px 48px;
+    }
+
+    .timestamp-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .timestamp-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #e8ff47;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .timestamp-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #3a3a3a;
+      letter-spacing: 0.08em;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .field-block {
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid #161616;
+    }
+
+    .field-block:last-of-type {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .field-value {
+      font-family: 'DM Mono', monospace;
+      font-size: 15px;
+      color: #d0d0d0;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .field-value.highlight {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #f5f5f5;
+      letter-spacing: -0.01em;
+    }
+
+    .field-value.email-link {
+      color: #47ffd4;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .message-box {
+      background-color: #0a0a0a;
+      border: 1px solid #1a1a1a;
+      border-left: 3px solid #e8ff47;
+      padding: 24px 28px;
+      border-radius: 0 2px 2px 0;
+      margin-top: 8px;
+    }
+
+    .message-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: #888;
+      line-height: 1.8;
+      font-style: italic;
+      white-space: pre-wrap;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #1e1e1e 30%, #1e1e1e 70%, transparent);
+      margin: 36px 0;
+    }
+
+    /* ─── META ROW ─── */
+    .meta-row {
+      display: flex;
+      gap: 0;
+      background-color: #0a0a0a;
+      border: 1px solid #161616;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 32px;
+    }
+
+    .meta-cell {
+      flex: 1;
+      padding: 16px 20px;
+      border-right: 1px solid #161616;
+    }
+
+    .meta-cell:last-child {
+      border-right: none;
+    }
+
+    .meta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #2e2e2e;
+      margin-bottom: 6px;
+    }
+
+    .meta-value {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #555;
+    }
+
+    /* ─── CTA BUTTON ─── */
+    .cta-section {
+      padding: 36px 48px 40px;
+      background-color: #0c0c0c;
+      border-top: 1px solid #161616;
+      text-align: center;
+    }
+
+    .cta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #2e2e2e;
+      margin-bottom: 16px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: #e8ff47;
+      color: #0a0a0a;
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 36px;
+      border-radius: 2px;
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      padding: 28px 48px;
+      border-top: 1px solid #141414;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: #222;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-brand span {
+      color: #e8ff47;
+    }
+
+    .footer-note {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: #222;
+      letter-spacing: 0.05em;
+      text-align: right;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media only screen and (max-width: 600px) {
+      .header { padding: 36px 28px 28px; }
+      .header-decoration { display: none; }
+      .body { padding: 32px 28px; }
+      .header-title { font-size: 26px; }
+      .meta-row { flex-direction: column; }
+      .meta-cell { border-right: none; border-bottom: 1px solid #161616; }
+      .meta-cell:last-child { border-bottom: none; }
+      .cta-section { padding: 28px; }
+      .footer { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-note { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <table class="email-container" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+
+      <!-- HEADER -->
+      <tr>
+        <td class="header">
+          <div class="header-accent"></div>
+          <div class="header-tag">&#9679;&nbsp;&nbsp;New Incoming Message</div>
+          <div class="header-title">Someone wants<br/>to <span>connect.</span></div>
+          <div class="header-subtitle">via portfolio contact form</div>
+        </td>
+      </tr>
+
+      <!-- BODY -->
+      <tr>
+        <td class="body">
+
+          <!-- Timestamp -->
+          <div class="timestamp-row">
+            <div class="timestamp-dot"></div>
+            <div class="timestamp-text">Received: {{TIMESTAMP}}</div>
+          </div>
+
+          <!-- Full Name -->
+          <div class="field-block">
+            <div class="section-label">sender</div>
+            <div class="field-value highlight">{{FULL_NAME}}</div>
+          </div>
+
+          <!-- Email -->
+          <div class="field-block">
+            <div class="section-label">reply-to</div>
+            <a href="mailto:{{EMAIL}}" class="field-value email-link">{{EMAIL}}</a>
+          </div>
+
+          <!-- Subject -->
+          <div class="field-block">
+            <div class="section-label">subject</div>
+            <div class="field-value">{{SUBJECT}}</div>
+          </div>
+
+          <!-- Message -->
+          <div class="field-block">
+            <div class="section-label">message</div>
+            <div class="message-box">
+              <div class="message-text">{{MESSAGE}}</div>
+            </div>
+          </div>
+
+          <!-- Meta row -->
+          <div class="meta-row">
+            <div class="meta-cell">
+              <div class="meta-label">Source</div>
+              <div class="meta-value">Portfolio Website</div>
+            </div>
+            <div class="meta-cell">
+              <div class="meta-label">Form</div>
+              <div class="meta-value">Contact Page</div>
+            </div>
+            <div class="meta-cell">
+              <div class="meta-label">Status</div>
+              <div class="meta-value" style="color: #e8ff47;">&#10003; Delivered</div>
+            </div>
+          </div>
+
+        </td>
+      </tr>
+
+      <!-- CTA -->
+      <tr>
+        <td class="cta-section">
+          <div class="cta-label">Quick action</div>
+          <a href="mailto:{{EMAIL}}?subject=Re: {{SUBJECT}}" class="cta-button">
+            Reply to {{FULL_NAME}} &rarr;
+          </a>
+        </td>
+      </tr>
+
+      <!-- FOOTER -->
+      <tr>
+        <td class="footer">
+          <div class="footer-brand">your<span>.</span>portfolio</div>
+          <div class="footer-note">
+            This is an automated notification.<br/>
+            Do not reply directly to this email.
+          </div>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+</body>
+</html>
