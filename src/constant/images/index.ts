@@ -1,3 +1,3 @@
 import HeroImage from "./heroImage.png";
 
-export {HeroImage}
+export {HeroImage }
